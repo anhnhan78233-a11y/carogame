@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Caro Online Sakura</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ffe6eb 0%, #ffb6c1 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+    .sakura {
+      position: absolute;
+      background-color: #ffb7c5;
+      border-radius: 100% 0 100% 0;
+      opacity: 0.7;
+      pointer-events: none;
+      animation: fall linear infinite;
+    }
+    @keyframes fall {
+      0% { transform: translate(0, -10px) rotate(0deg); opacity: 0.8; }
+      100% { transform: translate(100px, 100vh) rotate(360deg); opacity: 0.2; }
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(8px);
+      padding: 25px 35px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(219, 112, 147, 0.3);
+      border: 2px solid #ffccd5;
+      text-align: center;
+      z-index: 10;
+    }
+    h1 { color: #d81b60; margin-bottom: 15px; font-size: 26px; }
+    .controls { margin-bottom: 15px; display: flex; gap: 8px; justify-content: center; }
+    input {
+      padding: 8px 12px;
+      border: 2px solid #ffb6c1;
+      border-radius: 8px;
+      outline: none;
+      font-size: 14px;
+      width: 150px;
+      text-align: center;
+    }
+    button {
+      padding: 8px 16px;
+      background: #ff6b81;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover { background: #d81b60; }
+    #status { font-size: 15px; font-weight: 600; color: #c2185b; margin-bottom: 15px; min-height: 22px; }
+    #board {
+      display: grid;
+      grid-template-columns: repeat(15, 30px);
+      grid-template-rows: repeat(15, 30px);
+      gap: 1px;
+      background-color: #ffb6c1;
+      border: 3px solid #ff8da1;
+      border-radius: 6px;
+      margin: 0 auto;
+    }
+    .cell {
+      width: 30px;
+      height: 30px;
+      background-color: #fff0f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      user-select: none;
+    }
+    .cell:hover { background-color: #ffe4e1; }
+    .cell.x-symbol { color: #e91e63; }
+    .cell.o-symbol { color: #1e88e5; }
+  </style>
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🌸 Game Caro Online 🌸</h1>
+    <div class="controls">
+      <input type="text" id="roomIdInput" placeholder="Mã phòng (VD: 123)">
+      <button onclick="joinRoom()">Vào phòng</button>
+    </div>
+    <div id="status">Nhập cùng 1 mã phòng với bạn bè để kết nối!</div>
+    <div id="board"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
